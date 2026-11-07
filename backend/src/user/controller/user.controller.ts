@@ -99,7 +99,7 @@ export class UserController {
     return this.userService.update(user_id, user);
   }
   @Put('/password/1')
-  async updatePassword(
+  async updatePassword( 
       @Body('email') email: string,
       @Body('password') password: string,
   ) {
@@ -111,6 +111,21 @@ export class UserController {
       
       const hashedPassword = await bcrypt.hash(password, 12);
       await this.userService.updateUserPassword(user.user_id, hashedPassword);
+      return { message: 'success' };
+  }
+  @Put('/phone/:user_id')
+  async updatePhone(
+    @Param('user_id') user_id: number,
+      @Body('tele') tele: string,
+  ) {
+      // Handle the case when the user is found
+      const user:any = await this.userService.findOne({ where: { user_id } });
+      user.tele=tele
+      if (!user) {
+          throw new Error('User not found');
+      }
+      
+      await this.userService.update(user.user_id, user);
       return { message: 'success' };
   }
   @Put('/password/phone')

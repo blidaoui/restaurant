@@ -55,7 +55,7 @@ export class PanierController {
     @Body('prix') prix: number, 
     @Body('ModeRetrait')  ModeRetrait:string,
     @Body('createdAt')  createdAt ,
-    @Body('etat_commande') etat_commande:string,
+    @Body('etat_commande') etat_commande:string,  
 
 
   ) {
